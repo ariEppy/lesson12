@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Remove Employees</title>
+  </head>
+
+  <body>
+    <h1>Remove employees over a certain age</h1>
+    <input type="text" placeholder="deleteAge" id="deleteAge" /> <br />
+    <button onclick="deleteOlder()">Delete per age</button>
+    <h2 id="server-result"></h2>
+    <script>
+      async function deleteOlder() {
+        const age = document.querySelector("#deleteAge").value;
+        const serverResult = document.querySelector("#server-result");
+        const response = await fetch("/api/remove-over", {
+          headers: { "Content-Type": "application/json" },
+          method: "DELETE",
+          body: JSON.stringify({ age }),
+        });
+        const data = await response.text();
+        serverResult.textContent = data;
+      }
+    </script>
+  </body>
+</html>

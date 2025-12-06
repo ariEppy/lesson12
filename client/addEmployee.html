@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Add Employee</h1>
+    <input type="text" placeholder="Name" id="employeeName" /> <br />
+    <input type="text" placeholder="department" id="department" /> <br />
+    <input type="text" placeholder="age" id="age" /> <br />
+    <input type="text" placeholder="salary" id="salary" /> <br />
+    <button onclick="addEmp()">Add Employee</button>
+
+    <h2 id="server-result"></h2>
+
+    <script>
+      async function addEmp() {
+        const name = document.querySelector("#employeeName").value;
+        const depart = document.querySelector("#department").value;
+        const age = document.querySelector("#age").value;
+        const salary = document.querySelector("#salary").value;
+        const serverResult = document.querySelector("#server-result");
+
+        const response = await fetch("/api/add-employee", {
+          headers: { "Content-Type": "application/json" },
+          method: "POST",
+          body: JSON.stringify({ name, depart, age, salary }),
+        });
+        const data = await response.text();
+        serverResult.textContent = data;
+      }
+    </script>
+  </body>
+</html>

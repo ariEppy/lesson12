@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Alter Department</h1>
+    <input type="text" placeholder="oldDepart" id="oldDepart" /> <br />
+    <input type="text" placeholder="newDepart" id="newDepart" /> <br />
+    <button onclick="editDepart()">Edit Department</button>
+    <h2 id="serverResult"></h2>
+
+    <script>
+      async function editDepart() {
+        const oldDepart = document.querySelector("#oldDepart").value;
+        const newDepart = document.querySelector("#newDepart").value;
+        const serverResult = document.querySelector("#serverResult");
+
+        const response = await fetch("/api/update-depart", {
+          headers: { "Content-Type": "application/json" },
+          method: "PUT",
+          body: JSON.stringify({ oldDepart, newDepart }),
+        });
+        const data = await response.text();
+        serverResult.textContent = data;
+      }
+    </script>
+  </body>
+</html>
